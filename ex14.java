@@ -6,52 +6,73 @@ public class ex14 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter number of rows : ");
-        int R = sc.nextInt();
-        System.out.print("Enter number of columns : ");
-        int C = sc.nextInt();
-        sc.nextLine(); 
+        int rows = readInt(sc, "Enter number of rows : ");
+        int cols = readInt(sc, "Enter number of columns : ");
 
-        char[][] map = new char[R][C];
+        char[][] map = readMap(sc, rows, cols);
+
+        int targetR = readInt(sc, "Enter target row (0-indexed): ");
+        int targetC = readInt(sc, "Enter target column (0-indexed): ");
+
+        processCell(map, targetR, targetC);
+
+        sc.close();
+    }
+
+    private static int readInt(Scanner sc, String message) {
+        System.out.print(message);
+        return sc.nextInt();
+    }
+
+    private static char[][] readMap(Scanner sc, int rows, int cols) {
+        sc.nextLine(); 
+        char[][] map = new char[rows][cols];
 
         System.out.println("Enter the map row by row (* for mine, . for empty):");
-        for (int i = 0; i < R; i++) {
+
+        for (int i = 0; i < rows; i++) {
             String row;
             while (true) {
                 row = sc.nextLine();
-                if (row.length() == C) break;
-                System.out.println("Row length must be " + C + ". Enter again:");
+                if (row.length() == cols) break;
+                System.out.println("Row length must be " + cols + ". Enter again:");
             }
-            for (int j = 0; j < C; j++) {
-                map[i][j] = row.charAt(j);
-            }
+            map[i] = row.toCharArray();
         }
+        return map;
+    }
 
-        System.out.print("Enter target row (0-indexed): ");
-        int targetR = sc.nextInt();
-        System.out.print("Enter target column (0-indexed): ");
-        int targetC = sc.nextInt();
-
-        if (map[targetR][targetC] == '*') {
+    private static void processCell(char[][] map, int r, int c) {
+        if (isMine(map, r, c)) {
             System.out.println("Mine");
         } else {
-            int mineCount = 0;
-            for (int dr = -1; dr <= 1; dr++) {
-                for (int dc = -1; dc <= 1; dc++) {
-                    if (dr == 0 && dc == 0) continue;
-                    int newR = targetR + dr;
-                    int newC = targetC + dc;
+            System.out.println(countAdjacentMines(map, r, c));
+        }
+    }
 
-                    if (newR >= 0 && newR < R && newC >= 0 && newC < C) {
-                        if (map[newR][newC] == '*') {
-                            mineCount++;
-                        }
+    private static boolean isMine(char[][] map, int r, int c) {
+        return map[r][c] == '*';
+    }
+
+    private static int countAdjacentMines(char[][] map, int r, int c) {
+        int rows = map.length;
+        int cols = map[0].length;
+        int count = 0;
+
+        for (int dr = -1; dr <= 1; dr++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                if (dr == 0 && dc == 0) continue;
+
+                int nr = r + dr;
+                int nc = c + dc;
+
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                    if (map[nr][nc] == '*') {
+                        count++;
                     }
                 }
             }
-            System.out.println(mineCount);
         }
-
-        sc.close();
+        return count;
     }
 }

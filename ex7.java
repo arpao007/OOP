@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 public class ex7 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
+
         try {
             System.out.print("Enter the number of integers : ");
             int N = sc.nextInt();
@@ -18,8 +18,8 @@ public class ex7 {
 
                 for (int i = 1; i <= N; i++) {
                     System.out.print("Enter number " + i + ": ");
-                    int num = sc.nextInt();
-                    sum += num;
+                    int inputNumber = sc.nextInt();
+                    sum += inputNumber;
                 }
 
                 System.out.println("Sum = " + sum);

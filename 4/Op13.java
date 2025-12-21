@@ -3,14 +3,13 @@ package Op7;
 import java.util.Scanner;
 
 class Subscription {
-    
     private final String planName;
     private final int durationDays;
     private static int maxDuration = 365;
 
     public Subscription(String planName, int durationDays) {
-        if (durationDays > maxDuration) durationDays = maxDuration;
         if (durationDays < 0) durationDays = 0;
+        if (durationDays > maxDuration) durationDays = maxDuration;
         this.planName = planName;
         this.durationDays = durationDays;
     }
@@ -34,7 +33,7 @@ class Subscription {
             System.out.println("Invalid extension days.");
             return this;
         }
-        int newDays = durationDays + days;
+        int newDays = this.durationDays + days;
         if (newDays > maxDuration) {
             System.out.println("Extension failed: Exceeds max policy.");
             return this;
@@ -66,5 +65,6 @@ public class Op13 {
         Subscription s3 = s2.extend(ex2);
 
         s3.displayInfo();
+        sc.close();
     }
 }

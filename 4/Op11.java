@@ -32,12 +32,12 @@ public class Op11 {
 
         String baseTheme = sc.nextLine();
         int baseSize = sc.nextInt();
-        boolean baseDark = sc.nextBoolean();
+        boolean baseDark = Boolean.parseBoolean(sc.next());
         sc.nextLine();
 
         String userTheme = sc.nextLine();
         int userSize = sc.nextInt();
-        boolean userDark = sc.nextBoolean();
+        boolean userDark = Boolean.parseBoolean(sc.next());
 
         Configuration baseConfig = new Configuration(baseTheme, baseSize, baseDark);
         Configuration userConfig = new Configuration(userTheme, userSize, userDark);

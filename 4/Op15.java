@@ -1,6 +1,6 @@
 package Op7;
 
-import java.util.*;
+import java.util.Scanner;
 
 class AuditRecord {
 
@@ -84,5 +84,6 @@ public class Op15 {
         }
 
         audit.displayLog();
+        sc.close();
     }
 }
